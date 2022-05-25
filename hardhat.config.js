@@ -17,13 +17,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- module.exports = {
+module.exports = {
   solidity: "0.8.0",
   defaultNetwork: "kiln",
   networks: {
     kiln: {
-        url: `https://rpc.kiln.themerge.dev`,
-        accounts: [`${process.env.PRIVATE_KEY}`]
+        url: process.env.URL,
+        account: process.env.PRIVATE_KEY
     }
   },
 };
