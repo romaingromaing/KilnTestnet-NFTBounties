@@ -1,6 +1,8 @@
 # Get the NFT Drop for The Merge Testers
 
-Do this before block 565505, when the snapshot will be taken.
+Do this before block 565505, when the snapshot will be taken. 
+
+If you want to be sure to take the bounty, edit script.js (but it should be ok as it is now).
 
 References:
 * Link 1: https://onlydust.notion.site/NFT-Drop-for-The-Merge-Testers-26db58aeae2b4c54a7de57ecf2d0e0f6
