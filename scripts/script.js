@@ -1,5 +1,9 @@
 const fs = require('fs');
 
+const provider = ethers.providers.getDefaultProvider(process.env.URL)
+const privateKey = process.env.PRIVATE_KEY
+const wallet = new ethers.Wallet(privateKey, provider)
+
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -7,9 +11,6 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 async function deployContract(i) {
-  const provider = ethers.providers.getDefaultProvider(process.env.URL)
-  const privateKey = process.env.PRIVATE_KEY
-  const wallet = new ethers.Wallet(privateKey, provider)
   const metadata = JSON.parse(fs.readFileSync('artifacts/contracts/Counter.sol/Counter.json').toString())
   const factory = new ethers.ContractFactory(metadata.abi, metadata.bytecode, wallet)
   const contract = await factory.deploy()
@@ -24,6 +25,7 @@ async function deployContract(i) {
 
 async function main() {
 
+  const b0 = await provider.getBalance(wallet.address);
   const t0 = performance.now();
 
   // 90 deployments
@@ -52,10 +54,12 @@ async function main() {
     console.log(`-------------------------------------------------`);
   }
 
+  const b1 = await provider.getBalance(wallet.address);
+  const gasSpent = parseFloat(ethers.utils.formatEther(b0.sub(b1))).toFixed(4);
   const t1 = performance.now();
   const elapsedTime = millisToMinutesAndSeconds(t1-t0);
 
-  console.log(`Finished! It took ${elapsedTime} minutes`);
+  console.log(`Finished! You've spent Ξ${gasSpent} and it took ${elapsedTime} minutes`);
 
 }
 
