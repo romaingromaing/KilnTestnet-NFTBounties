@@ -37,6 +37,8 @@ async function main() {
     }
   }
 
+  console.log(`-------------------------------------------------`);
+
   // 10 deployments + 10 calls
   for(let i=91; i<=100; ++i) {
     try {
